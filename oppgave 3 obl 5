@@ -1,15 +1,71 @@
-@app.route('/commit')
-def commit():
-    commit_all()
-    
-    # Les all data fra kgdata.xlsx
-    forelder_data = forelder.to_dict(orient='records')
-    barnehage_data = barnehage.to_dict(orient='records')
-    barn_data = barn.to_dict(orient='records')
-    soknad_data = soknad.to_dict(orient='records')
-    
-    return render_template('commit.html', 
-                           forelder=forelder_data, 
-                           barnehage=barnehage_data, 
-                           barn=barn_data, 
-                           soknad=soknad_data)
+{% extends "base.html" %}
+
+{% block title %}Data Lagret{% endblock %}
+
+{% block content %}
+<h1>Alle data er lagret permanent i databasen</h1>
+
+<h2>Forelder Data:</h2>
+<table>
+    <tr>
+        {% for column in forelder[0].keys() %}
+        <th>{{ column }}</th>
+        {% endfor %}
+    </tr>
+    {% for row in forelder %}
+    <tr>
+        {% for value in row.values() %}
+        <td>{{ value }}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+
+<h2>Barnehage Data:</h2>
+<table>
+    <tr>
+        {% for column in barnehage[0].keys() %}
+        <th>{{ column }}</th>
+        {% endfor %}
+    </tr>
+    {% for row in barnehage %}
+    <tr>
+        {% for value in row.values() %}
+        <td>{{ value }}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+
+<h2>Barn Data:</h2>
+<table>
+    <tr>
+        {% for column in barn[0].keys() %}
+        <th>{{ column }}</th>
+        {% endfor %}
+    </tr>
+    {% for row in barn %}
+    <tr>
+        {% for value in row.values() %}
+        <td>{{ value }}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+
+<h2>Søknad Data:</h2>
+<table>
+    <tr>
+        {% for column in soknad[0].keys() %}
+        <th>{{ column }}</th>
+        {% endfor %}
+    </tr>
+    {% for row in soknad %}
+    <tr>
+        {% for value in row.values() %}
+        <td>{{ value }}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
